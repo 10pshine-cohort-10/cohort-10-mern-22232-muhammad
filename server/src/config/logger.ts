@@ -42,7 +42,8 @@ export function buildTransport(config: TransportConfig): LoggerOptions['transpor
           frequency: 'daily',
           extension: '.log',
           mkdir: true,
-          limit: { count: 14 },
+          // Keep 14 rotated files plus the active one, including files left by earlier processes.
+          limit: { count: 14, removeOtherLogFiles: true },
         },
       },
     ];
@@ -67,11 +68,20 @@ const transport = buildTransport({
   logDir: env.LOG_DIR,
 });
 
+export const REDACTION_CENSOR = '[REDACTED]';
+
+/** Core logger options (level, base fields, redaction, timestamps) shared by every destination. */
+export function buildLoggerOptions(level: string): LoggerOptions {
+  return {
+    level,
+    base: { service: 'noteflow-api' },
+    redact: { paths: REDACTED_PATHS, censor: REDACTION_CENSOR },
+    timestamp: pino.stdTimeFunctions.isoTime,
+  };
+}
+
 export const logger = pino({
-  level: isTest ? 'silent' : env.LOG_LEVEL,
-  base: { service: 'noteflow-api' },
-  redact: { paths: REDACTED_PATHS, censor: '[REDACTED]' },
-  timestamp: pino.stdTimeFunctions.isoTime,
+  ...buildLoggerOptions(isTest ? 'silent' : env.LOG_LEVEL),
   ...(transport ? { transport } : {}),
 });
 
