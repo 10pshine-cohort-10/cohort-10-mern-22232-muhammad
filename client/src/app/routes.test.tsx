@@ -45,6 +45,18 @@ describe('app routes', () => {
     expect(screen.getByRole('heading', { level: 1, name: /your thoughts/i })).toBeInTheDocument();
   });
 
+  it.each([
+    ['/login', 'Log in'],
+    ['/signup', 'Create your account'],
+  ])('shows an explicit "coming soon" state at %s instead of a 404', (route, title) => {
+    renderRoute({ route });
+
+    expect(screen.getByRole('heading', { level: 1, name: title })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(/coming in the next release/i);
+    expect(screen.queryByText('Page not found')).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Back to home' })).toHaveAttribute('href', '/');
+  });
+
   it('shows the error page when a route crashes', () => {
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
     jest.spyOn(console, 'warn').mockImplementation(() => undefined);
