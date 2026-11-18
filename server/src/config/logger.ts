@@ -15,17 +15,30 @@ export const REDACTED_PATHS = [
   '*.refreshToken',
 ];
 
-function buildTransport(): LoggerOptions['transport'] {
-  if (isTest) return undefined;
+interface TransportConfig {
+  isTest: boolean;
+  isProduction: boolean;
+  level: string;
+  logDir: string;
+}
 
-  if (isProduction) {
+/**
+ * Chooses where logs go:
+ * - test: nowhere (silent, no worker threads)
+ * - production: JSON to stdout + daily-rotated files (14 days kept)
+ * - development: colourised, human-readable output
+ */
+export function buildTransport(config: TransportConfig): LoggerOptions['transport'] {
+  if (config.isTest) return undefined;
+
+  if (config.isProduction) {
     const targets: TransportTargetOptions[] = [
-      { target: 'pino/file', level: env.LOG_LEVEL, options: { destination: 1 } },
+      { target: 'pino/file', level: config.level, options: { destination: 1 } },
       {
         target: 'pino-roll',
-        level: env.LOG_LEVEL,
+        level: config.level,
         options: {
-          file: path.join(env.LOG_DIR, 'app'),
+          file: path.join(config.logDir, 'app'),
           frequency: 'daily',
           extension: '.log',
           mkdir: true,
@@ -47,7 +60,12 @@ function buildTransport(): LoggerOptions['transport'] {
   };
 }
 
-const transport = buildTransport();
+const transport = buildTransport({
+  isTest,
+  isProduction,
+  level: env.LOG_LEVEL,
+  logDir: env.LOG_DIR,
+});
 
 export const logger = pino({
   level: isTest ? 'silent' : env.LOG_LEVEL,
