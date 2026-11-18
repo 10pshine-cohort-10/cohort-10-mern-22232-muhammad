@@ -42,7 +42,7 @@ flowchart LR
 ### Backend
 | Concern | Choice | Reason |
 |---|---|---|
-| Runtime | Node.js 22+ LTS (local: v26) | Required. |
+| Runtime | Node.js 22.12+ LTS (local: v26) | Required; Vite 8 needs ≥ 22.12. |
 | Language | **TypeScript (strict)** | Brief mentions JS/TS rules for SonarQube; TS catches bugs early and impresses reviewers. |
 | Framework | Express 5 | Industry standard, native async error propagation. |
 | DB | **MySQL 8** | Listed in the required stack. |
@@ -153,6 +153,9 @@ sequenceDiagram
 
 - Reuse of a revoked refresh token ⇒ revoke the whole token family (theft detection).
 - Logout ⇒ revoke refresh token, clear cookie, disconnect sockets.
+- **Multiple tabs share one refresh cookie**, so refreshes are coordinated to avoid a false "reuse" alarm:
+  1. **Client:** a tab takes a Web Lock (`navigator.locks.request('noteflow-refresh')`) before refreshing; others wait, then reuse the new access token broadcast over a `BroadcastChannel` instead of refreshing again.
+  2. **Server:** a just-rotated token stays valid for a short grace window (~10 s) and returns the already-issued successor. Reuse **after** the grace window is still treated as theft and revokes the family.
 
 ## 5. Real-time Design (Socket.IO)
 

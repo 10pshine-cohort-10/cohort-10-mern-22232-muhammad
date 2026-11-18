@@ -103,7 +103,7 @@ Note sharing between users, collaborative co-editing, file attachments, OAuth (G
 | Security | bcrypt (cost 12), JWT access (15 min) + rotating refresh token (7 days, httpOnly, SameSite), Helmet, CORS whitelist, rate limiting, input validation (Zod) on every endpoint, HTML sanitization of rich-text content, parameterized queries only, secrets in `.env` (never committed). |
 | Performance | API p95 < 200 ms locally; paginated list endpoints; DB indexes on all filter columns; code-split frontend routes. |
 | Accessibility | WCAG 2.1 AA: keyboard navigable, visible focus, labels on inputs, contrast ≥ 4.5:1, ARIA where needed. |
-| Reliability | Graceful shutdown, health endpoint `/api/health`, unhandled rejection/exception handlers log and exit cleanly. |
+| Reliability | Graceful shutdown, health endpoint `/api/v1/health`, unhandled rejection/exception handlers log and exit cleanly. |
 | Observability | Structured JSON logs (Pino), request-id correlation, pretty logs in dev, redaction of passwords/tokens. |
 | Maintainability | Layered architecture, ESLint + Prettier, TypeScript strict mode, no file > ~300 lines, SonarQube gate. |
 

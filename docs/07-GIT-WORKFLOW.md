@@ -17,7 +17,7 @@ flowchart LR
 2. `git clone https://github.com/YOUR_USERNAME/cohort-10-mern-22232-muhammad.git`
 3. Add upstream remote: `git remote add upstream https://github.com/10pshine-cohort-10/cohort-10-mern-22232-muhammad.git`
 4. Work on branches (below), push to the fork.
-5. Open PR(s) **from fork → upstream `main`**.
+5. Open PR(s) **from fork → upstream `develop`** (CodeRabbit reviews PRs into `main` and `develop`).
 6. CodeRabbit reviews within minutes → fix **all HIGH & CRITICAL**, ideally MEDIUM too; reply to every comment (resolved / explained).
 7. When clean, assign the PR to the mentor.
 
@@ -50,8 +50,12 @@ The mentor's rule: **each feature is completed and submitted as a separate PR be
 | 9 | `feature/user-profile` | Profile screen, change password, activity |
 | 10 | `chore/sonarqube-polish` | Sonar fixes, a11y, Lighthouse, README, screenshots |
 
-Per-feature loop: sync `main` from upstream → branch → commit & push often → open PR → fix CodeRabbit HIGH/CRITICAL → assign mentor → next feature.
-If upstream PRs are **not merged** before the next feature starts, branch the next feature from the previous feature branch (stacked PRs) and rebase onto `main` once the earlier PR is merged.
+Per-feature loop: sync `develop` from upstream → branch from it → commit & push often → open PR into upstream `develop` → fix CodeRabbit HIGH/CRITICAL → assign mentor → next feature.
+
+**When the previous feature PR is not merged yet (stacked PRs):** an upstream PR can only target upstream branches, and the previous feature branch lives in the fork. So:
+1. Branch the next feature from the previous feature branch and keep working.
+2. Open its PR into upstream `develop` as a **Draft**, with "Depends on #N" in the description, so reviewers know the first commits belong to PR #N.
+3. Once #N is merged, `git fetch upstream && git rebase --onto upstream/develop <previous-feature-branch>` and force-push with lease; the PR diff then shows only the new feature. Mark it "Ready for review".
 
 ## 3. Commit Convention (Conventional Commits, enforced by commitlint)
 
