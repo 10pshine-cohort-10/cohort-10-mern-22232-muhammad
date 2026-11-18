@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import type { Request } from 'express';
 import { z } from 'zod';
 import { validate } from '../../../src/middlewares/validate.js';
 import { ValidationError } from '../../../src/utils/errors.js';
@@ -41,6 +42,26 @@ describe('middlewares/validate', () => {
     const fields = (error as ValidationError).details.map((detail) => detail.field);
     expect(fields).to.deep.equal(['id', 'page', 'title']);
     expect((error as ValidationError).details[2]?.message).to.equal('Title is required');
+  });
+
+  it('works when req.query is an inherited getter-only property (Express 5)', () => {
+    const prototype = {};
+    Object.defineProperty(prototype, 'query', {
+      get: () => ({ page: '4' }),
+      configurable: true,
+      enumerable: true,
+    });
+    const req = Object.assign(Object.create(prototype) as Request, {
+      params: {},
+      body: {},
+    });
+    const next = createNext();
+
+    validate({ query: schemas.query })(req, createMockResponse().res, next);
+
+    expect(next.calledOnceWithExactly()).to.equal(true);
+    expect(req.query).to.deep.equal({ page: 4 });
+    expect(Object.getOwnPropertyDescriptor(req, 'query')?.writable).to.equal(true);
   });
 
   it('skips parts that have no schema', () => {
