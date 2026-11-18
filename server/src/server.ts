@@ -8,8 +8,12 @@ const SHUTDOWN_TIMEOUT_MS = 10_000;
 const app = createApp();
 const server = createServer(app);
 let shuttingDown = false;
+// The exit status is shared so a fatal error during an in-progress graceful shutdown
+// still makes the process exit with a failure code (never downgraded back to 0).
+let exitStatus = 0;
 
 function shutdown(reason: string, exitCode: number): void {
+  exitStatus = Math.max(exitStatus, exitCode);
   if (shuttingDown) return;
   shuttingDown = true;
   logger.info({ event: 'SERVER_SHUTDOWN', reason }, 'Shutting down gracefully');
@@ -25,7 +29,7 @@ function shutdown(reason: string, exitCode: number): void {
       logger.error({ err: closeError }, 'Error while closing HTTP server');
     }
     logger.info({ event: 'SERVER_STOPPED' }, 'Server stopped');
-    process.exit(closeError ? 1 : exitCode);
+    process.exit(closeError ? 1 : exitStatus);
   });
 }
 
