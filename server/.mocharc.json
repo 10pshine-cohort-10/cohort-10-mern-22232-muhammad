@@ -1,0 +1,9 @@
+{
+  "node-option": ["import=tsx"],
+  "require": ["test/setup.ts"],
+  "spec": ["test/**/*.test.ts"],
+  "extension": ["ts"],
+  "recursive": true,
+  "timeout": 10000,
+  "reporter": "spec"
+}

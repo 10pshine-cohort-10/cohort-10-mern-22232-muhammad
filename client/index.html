@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="NoteFlow — capture, organize and find your notes in seconds."
+    />
+    <meta name="theme-color" content="#4f46e5" />
+    <title>NoteFlow</title>
+    <script>
+      // Apply the saved theme before first paint to avoid a light/dark flash.
+      // Mirrors ThemeProvider: only an explicit 'light' or 'dark' overrides the OS preference;
+      // missing, invalid or unreadable values fall back to 'system'.
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('noteflow-theme');
+        } catch (e) {
+          stored = null;
+        }
+        var prefersDark = false;
+        try {
+          prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        } catch (e) {
+          prefersDark = false;
+        }
+        var isDark = stored === 'dark' || (stored !== 'light' && prefersDark);
+        document.documentElement.classList.toggle('dark', isDark);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
