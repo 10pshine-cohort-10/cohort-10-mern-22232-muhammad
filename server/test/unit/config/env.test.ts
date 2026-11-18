@@ -23,9 +23,9 @@ describe('config/env › parseEnv', () => {
   });
 
   it('throws a readable error listing every invalid variable', () => {
-    expect(() =>
-      parseEnv({ NODE_ENV: 'staging', PORT: 'abc', CLIENT_URL: 'not-a-url' }),
-    ).to.throw(/Invalid environment configuration[\s\S]*NODE_ENV[\s\S]*PORT[\s\S]*CLIENT_URL/);
+    expect(() => parseEnv({ NODE_ENV: 'staging', PORT: 'abc', CLIENT_URL: 'not-a-url' })).to.throw(
+      /Invalid environment configuration[\s\S]*NODE_ENV[\s\S]*PORT[\s\S]*CLIENT_URL/,
+    );
   });
 
   it('rejects an unknown LOG_LEVEL', () => {

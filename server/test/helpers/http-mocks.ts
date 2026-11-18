@@ -29,5 +29,5 @@ export function createMockRequest(overrides: Partial<Request> = {}): Request {
 }
 
 export function createNext(): NextFunction & SinonSpy {
-  return sinon.spy() as unknown as NextFunction & SinonSpy;
+  return sinon.spy();
 }

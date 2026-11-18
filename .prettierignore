@@ -4,3 +4,4 @@ coverage
 logs
 package-lock.json
 *.md
+.coderabbit.yaml

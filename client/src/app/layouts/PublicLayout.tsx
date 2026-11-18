@@ -1,9 +1,10 @@
+import type { JSX } from 'react';
 import { Outlet } from 'react-router';
 import { SiteFooter } from './SiteFooter';
 import { SiteHeader } from './SiteHeader';
 
 /** Layout for public (logged-out) pages: sticky header, content, footer. */
-export function PublicLayout() {
+export function PublicLayout(): JSX.Element {
   return (
     <div className="flex min-h-dvh flex-col">
       <a

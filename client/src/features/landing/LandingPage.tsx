@@ -1,10 +1,11 @@
+﻿import type { JSX } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router';
-import { buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button-variants';
 import { FeatureGrid } from './FeatureGrid';
 import { ProductPreview } from './ProductPreview';
 
-export function LandingPage() {
+export function LandingPage(): JSX.Element {
   return (
     <>
       <section className="relative overflow-hidden">
@@ -22,11 +23,11 @@ export function LandingPage() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-pretty text-muted-foreground">
             NoteFlow is a calm, focused space to capture ideas, plan your work and find anything in
-            seconds — with rich text, tags, instant search and real-time sync.
+            seconds â€” with rich text, tags, instant search and real-time sync.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link to="/signup" className={buttonVariants({ size: 'lg' })}>
-              Start writing — it’s free
+              Start writing â€” itâ€™s free
               <ArrowRight aria-hidden="true" />
             </Link>
             <Link to="/login" className={buttonVariants({ variant: 'secondary', size: 'lg' })}>

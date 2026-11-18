@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+﻿import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button, buttonVariants } from './button';
+import { Button } from './button';
+import { buttonVariants } from './button-variants';
 
 describe('Button', () => {
   it('renders a non-submitting button by default', () => {

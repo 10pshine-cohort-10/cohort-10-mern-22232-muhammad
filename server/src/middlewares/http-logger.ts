@@ -13,7 +13,8 @@ const SILENT_PATHS = new Set(['/api/v1/health']);
  */
 export function resolveRequestId(req: IncomingMessage, res: ServerResponse): string {
   const incoming = req.headers[REQUEST_ID_HEADER];
-  const id = typeof incoming === 'string' && VALID_REQUEST_ID.test(incoming) ? incoming : randomUUID();
+  const id =
+    typeof incoming === 'string' && VALID_REQUEST_ID.test(incoming) ? incoming : randomUUID();
   res.setHeader(REQUEST_ID_HEADER, id);
   return id;
 }

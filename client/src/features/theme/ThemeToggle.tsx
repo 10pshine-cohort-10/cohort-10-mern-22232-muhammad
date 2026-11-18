@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme, type Theme } from './theme-context';
@@ -21,7 +22,7 @@ const ICONS = {
 } as const;
 
 /** Cycles light → dark → system. The label announces the current theme and the next action. */
-export function ThemeToggle() {
+export function ThemeToggle(): JSX.Element {
   const { theme, setTheme } = useTheme();
   const Icon = ICONS[theme];
   const next = NEXT_THEME[theme];

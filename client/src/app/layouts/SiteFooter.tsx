@@ -1,4 +1,5 @@
-export function SiteFooter() {
+import type { JSX } from 'react';
+export function SiteFooter(): JSX.Element {
   const year = new Date().getFullYear();
 
   return (

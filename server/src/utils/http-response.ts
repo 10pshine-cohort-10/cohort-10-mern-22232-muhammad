@@ -24,7 +24,12 @@ export interface ErrorBody {
 }
 
 /** Sends the standard success envelope: `{ success: true, data, meta? }`. */
-export function sendSuccess<T>(res: Response, data: T, statusCode = 200, meta?: PaginationMeta): void {
+export function sendSuccess<T>(
+  res: Response,
+  data: T,
+  statusCode = 200,
+  meta?: PaginationMeta,
+): void {
   const body: SuccessBody<T> = meta ? { success: true, data, meta } : { success: true, data };
   res.status(statusCode).json(body);
 }

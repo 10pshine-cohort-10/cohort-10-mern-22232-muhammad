@@ -25,7 +25,12 @@ describe('utils/errors', () => {
 
   const cases: Array<[string, AppError, number, string]> = [
     ['BadRequestError', new BadRequestError(), 400, 'BAD_REQUEST'],
-    ['ValidationError', new ValidationError([{ field: 'email', message: 'Invalid' }]), 400, 'VALIDATION_ERROR'],
+    [
+      'ValidationError',
+      new ValidationError([{ field: 'email', message: 'Invalid' }]),
+      400,
+      'VALIDATION_ERROR',
+    ],
     ['UnauthorizedError', new UnauthorizedError(), 401, 'UNAUTHORIZED'],
     ['ForbiddenError', new ForbiddenError(), 403, 'FORBIDDEN'],
     ['NotFoundError', new NotFoundError(), 404, 'NOT_FOUND'],

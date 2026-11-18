@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { FileText, Pin, Search } from 'lucide-react';
 
 interface PreviewNote {
@@ -37,7 +38,7 @@ const NOTES: PreviewNote[] = [
 const NAV_ITEMS = ['All notes', 'Pinned', 'Archive', 'Trash'];
 
 /** Decorative, non-interactive mock of the dashboard shown on the landing page. */
-export function ProductPreview() {
+export function ProductPreview(): JSX.Element {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-20 sm:px-6" aria-hidden="true">
       <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-2xl shadow-primary/10">

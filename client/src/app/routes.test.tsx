@@ -1,6 +1,6 @@
-import { screen } from '@testing-library/react';
+﻿import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { FEATURES } from '@/features/landing/FeatureGrid';
+import { FEATURES } from '@/features/landing/features';
 import { RouteErrorPage } from '@/features/errors/RouteErrorPage';
 import { renderRoute } from '@/test/render';
 
@@ -70,6 +70,8 @@ describe('app routes', () => {
         {
           path: '/',
           loader: () => {
+            // React Router's convention: loaders throw a Response to signal an HTTP error.
+            // eslint-disable-next-line @typescript-eslint/only-throw-error
             throw new Response(null, { status: 503, statusText: 'Service Unavailable' });
           },
           element: <p>never shown</p>,

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Link } from 'react-router';
 import { cn } from '@/lib/cn';
 
@@ -5,11 +6,14 @@ interface LogoProps {
   className?: string;
 }
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ className }: LogoProps): JSX.Element {
   return (
     <Link
       to="/"
-      className={cn('inline-flex items-center gap-2 rounded-md font-semibold tracking-tight', className)}
+      className={cn(
+        'inline-flex items-center gap-2 rounded-md font-semibold tracking-tight',
+        className,
+      )}
       aria-label="NoteFlow home"
     >
       <svg viewBox="0 0 32 32" className="size-7" aria-hidden="true">

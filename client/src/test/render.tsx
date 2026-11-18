@@ -9,7 +9,10 @@ interface RenderRouteOptions {
 }
 
 /** Renders the app's route table (or custom routes) in memory at the given URL, with all providers. */
-export function renderRoute({ route = '/', routes = appRoutes }: RenderRouteOptions = {}): RenderResult {
+export function renderRoute({
+  route = '/',
+  routes = appRoutes,
+}: RenderRouteOptions = {}): RenderResult {
   const router = createMemoryRouter(routes, { initialEntries: [route] });
   return render(
     <ThemeProvider>

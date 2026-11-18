@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactNode, type JSX } from 'react';
 import { readStorage, writeStorage } from '@/lib/storage';
 import {
   isTheme,
@@ -26,7 +26,10 @@ interface ThemeProviderProps {
 }
 
 /** Stores the theme preference, follows the OS setting when set to `system`, and toggles `<html class="dark">`. */
-export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProviderProps) {
+export function ThemeProvider({
+  children,
+  defaultTheme = 'system',
+}: ThemeProviderProps): JSX.Element {
   const [theme, setThemeState] = useState<Theme>(() => getInitialTheme(defaultTheme));
   const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemTheme);
 
