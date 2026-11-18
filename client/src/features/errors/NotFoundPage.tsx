@@ -1,4 +1,4 @@
-﻿import type { JSX } from 'react';
+import type { JSX } from 'react';
 import { Link } from 'react-router';
 import { buttonVariants } from '@/components/ui/button-variants';
 
@@ -8,7 +8,7 @@ export function NotFoundPage(): JSX.Element {
       <p className="text-sm font-semibold text-primary">404</p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight">Page not found</h1>
       <p className="mt-4 text-muted-foreground">
-        The page youâ€™re looking for doesnâ€™t exist or has been moved.
+        The page you’re looking for doesn’t exist or has been moved.
       </p>
       <Link to="/" className={buttonVariants({ className: 'mt-8' })}>
         Back to home

@@ -1,4 +1,4 @@
-﻿name: CI
+name: CI
 
 on:
   push:
@@ -41,6 +41,9 @@ jobs:
 
       - name: Check formatting
         run: npm run format:check
+
+      - name: Check file encoding
+        run: npm run check:encoding
 
       - name: Typecheck
         run: npm run typecheck

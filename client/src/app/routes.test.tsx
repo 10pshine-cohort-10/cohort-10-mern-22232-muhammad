@@ -1,4 +1,4 @@
-﻿import { screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { FEATURES } from '@/features/landing/features';
 import { RouteErrorPage } from '@/features/errors/RouteErrorPage';

@@ -10,7 +10,7 @@
     "client"
   ],
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "dev": "concurrently -k -n server,client -c blue,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
@@ -19,12 +19,14 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "check:encoding": "node scripts/check-encoding.mjs",
     "typecheck": "npm run typecheck -w server && npm run typecheck -w client",
     "test": "npm run test -w server && npm run test -w client",
     "test:coverage": "npm run test:coverage -w server && npm run test:coverage -w client",
     "prepare": "husky"
   },
   "lint-staged": {
+    "*": "node scripts/check-encoding.mjs",
     "*.{ts,tsx,js,mjs,cjs}": [
       "eslint --fix --max-warnings=0",
       "prettier --write"
